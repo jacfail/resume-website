@@ -4035,8 +4035,11 @@ input, select, textarea {
 	}
 
 	.section-break .major h2 {
-		font-size:2rem;
+		font-size: clamp(1.25rem, 5vw, 2rem);
 		margin-bottom: 0.75rem;
+		word-wrap: break-word;    /* breaks long words if necessary */
+		overflow-wrap: break-word; /* ensures wrapping on narrow screens */
+		hyphens: auto;            /* optional: adds hyphenation if a word is too long */
 	}
 
 	.section-break .subtitle {
