@@ -4024,3 +4024,24 @@ input, select, textarea {
 			url("images/bg-pattern.jpg") center / cover;
 		color: #fff;
 	}
+
+	#menu .links .divider {
+		height: 5px;
+		margin: 0.75em 1;
+		background-color: rgba(255, 255, 255, 0.2); /* adjust color */
+		list-style: none;
+	}
+
+	#menu .links .menu-title {
+		font-size: 0.85rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		font-weight: 800;
+		color: rgba(255, 255, 255, 0.85);
+		margin: 2em 0 0.75em;
+		padding: 0.35em 0.5em;
+		background: rgba(255, 255, 255, 0.08);
+		border-left: 3px solid rgba(255, 255, 255, 0.6);
+		list-style: none;
+		pointer-events: none;
+	}
