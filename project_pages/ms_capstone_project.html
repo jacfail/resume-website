@@ -61,98 +61,254 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h1>Masters Graduate Capstone Project</h1>
+										<h1>M.S. Capstone Project</h1>
 									</header>
 
 									<!-- Content -->
 										<h2 id="content">Robotic Sensor Apparatus (RSA-System) For Nuclear Power Plant Facility Monitoring</h2>
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_dog_flowloop_1.jpg" alt="" />
+										</div>
+
 										<p style="text-indent: 2em;">This project was my Robotics Masters Capstone Project and was a 
-											culmination of a year and a half of research, development, prototyping, and evaluation. I was 
+											culmination of almost two years of research, development, prototyping, and evaluation. I was 
 											able to create a whole product from conception to TRL 4 prototype demonstrated in a lab 
-											environment over that time period.
+											environment over that time period. I came up with the initial concepts and successfully led a 
+											team of four students in the development of this prototype. The project is still in active 
+											development at Georgia Tech in the Intelligence for Advanced Nuclear Lab under Dr. Fan Zhang.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_team.jpg" alt="" />
+										</div>
+
 										<p style="text-indent: 2em;">The Robotic Sensor Apparatus (RSA) system is a modular sensor hub 
 											with onboard AI-powered processing, sensor fusion, and input power that can be fixed to 
 											different mobile robot platforms to provide automated anomaly detection, classification, 
 											and suggested repair/action mappings for those classifications. The RSA system was developed 
 											and evaluated using data and scenarios provided by a flow loop test bench, and as a first 
-											proof of concept, it has proved that it is deserving of continued development. This system is 
-											intended to be configured for specific types of inspections or responses in nuclear power 
-											plants.
+											proof of concept, it has proved that it is deserving of continued development.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_final_enclosure.jpg" alt="" />
+										</div>
+
 										<p style="text-indent: 2em;">This system is intended to be configured for specific types of inspections 
 											or responses in nuclear power plants. It utilizes a library of machine learning models and computer 
 											vision algorithms to support three main things:
 											
-										<p style="text-indent: 2em;">1. Anomaly Detection: this would be accomplished utilizing the 
+										<p style="text-indent: 2em;">1. Anomaly Detection: this is accomplished utilizing the 
 												outputs from a visible-spectrum camera and a thermal longwave infrared (LWIR) camera. 
 
-										<p style="text-indent: 2em;">2. Anomaly Classification: this would be done using multiple machine 
+										<p style="text-indent: 2em;">2. Anomaly Classification: this is done using multiple machine 
 											learning classification models and custom algorithms to interface with the visible camera 
 											imagery and the LWIR temperature pixel data. 
 
-										<p style="text-indent: 2em;">3. Suggested Repair/Action Guidance: this would be accomplished 
-											using a policy map where a facility could map classifications to suggested actions. 
+										<p style="text-indent: 2em;">3. Suggested Repair/Action Guidance: this is accomplished 
+											using a policy map where a facility could map classifications to suggested actions.
 
+										<div class="image-center">
+											<img src="../images/project_images/rsa_processing_pipeline.png" alt="" />
+										</div>
+
+										<p style="text-indent: 2em;">To accomplish this, the system needed to be modular, have on-board AI-powered processing, 
+											sensor fusion, system-monitoring, extendibility, and simple operational control. The system also needed to be 
+											demonstrated using some sort of test facility. 
+										
 										<p style="text-indent: 2em;">The system offers a custom, modular 3D printed composure that allows for 
 											easy access to components, a module connection point that can be easily swapped out for integration 
 											with different robot platforms and end effectors, and enough power and cooling to keep the 
 											system operating for 3+ hours.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_design.png" alt="" />
+										</div>
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_enclosure_modular_piece.jpg" alt="" />
+										</div>
+
+										<p style="text-indent: 2em;">There are currently three iterations of the RSA-System, with the latest (2.0) in development 
+										in Spring 2026. The following table showcases the hardware as the system has evolved.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_version_history.png" alt=""/>
+										</div>
+
 										<p style="text-indent: 2em;">The system utilizes a thermal (LWIR) radiometric camera and a visible 
 											EO camera for the majority of its anomaly detection. The thermal camera can detect the 
 											temperature of pixel values within the frame, while the visible camera can be utilized to detect 
-											problems like rust, corrosion, and pipe leaks. 
+											problems like rust, corrosion, and pipe leaks on various parts found in a facility.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_thermal.png" alt="" />
+										</div>
+
 										<p style="text-indent: 2em;">The system utilizes a custom API that accesses and controls the cameras. 
 											It also utilizes a custom stream handler class that can stream the feeds from the camera module out 
 											to an external source via Ethernet/WiFi using Gstreamer with RTP over UDP. It turns the main 
-											processing unit (Jetson Nano) into a video server that pushes the video frames out via UDP. A client 
-											laptop can access the RSA system via the RSA Supervisor software. This software handles camera 
-											streaming, pipeline, control, sensor data visualizations, and processed results (detections, 
-											classifications, and suggested repairs/actions) from the RSA. This allows for a human technician 
-											to be in a safe control zone operating the RSA from afar.
+											processing unit (Jetson Nano) into a video server that pushes the video frames out via UDP. 
+											These H264-encoded videos then needed to be converted into a WebRTC stream for ingestion into 
+											the RSA Supervisor (the front end GUI). To do this a docker container called the RSA-Video-Restreamer 
+											was established. 
 											
-										<p style="text-indent: 2em;">Both custom and open-source datasets were curated for this project. The 
-											open-source datasets did not have very high quality data and labels for rust/corrosion and pipe 
-											leaks. To augment these datasets and provide better quality data, a custom dataset was extracted 
-											from a flow loop test bed provided by the Intelligence for Advanced Nuclear Laboratory (iFAN Lab). 
-											This test bed offered a physical nuclear power plant representation that this custom dataset could 
-											be extracted from.
-										<p style="text-indent: 2em;">Two models were developed after rigorous training. A rust/corrosion model and 
-											a pipe leak model. Both models performed very well in when verifying the system, with slightly better 
-											performance on the rust/corrosion model.
-										<p style="text-indent: 2em;">For evaluation, four objectives were established (fully test software, test 
-											onboard power, integrate a robot platform to prove modularity, and stream video and control system 
-											via WiFi and Ethernet).
+										<p style="text-indent: 2em;">Additionally, a custom WebSocket library was implemented to send Anomaly, System Status, 
+											and Anomaly Check messages back and forth between the RSA system and the RSA Supervisor. The System Status 
+											includes information like GPS, temperature/humidity read outs, and battery fuel gauge information. 
+											The Anomly message encapsulates a detected abnormal event by the RSA's onboard analytics system. It
+											includes info such as sensor sources, classification result, confidence scorings, and recommended 
+											operator actions. The Anomaly Check message can be sent from the RSA Supervisor to a specific deployed
+											RSA System to run anomaly analysis on specific areas of interest.
+
+										<p style="text-indent: 2em;">All of this allows for a human technician to be in a safe control zone operating 
+											the RSA from afar. Additionally, personnel that might not be as well trained as more experienced technicians, 
+											could operate a robot to enter potentially hazardous areas and perform expert-level inspections on systems 
+											and hardware.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_dog_flowloop_2.jpg" alt="" />
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_supervisor.png" alt="" />
+										</div>
+
+										<p style="text-indent: 2em;">The current network setup allows for multiple RSA systems to stream video and 
+											websocket messages to a single processing server. The processing server hosts the RSA Supervisor web 
+											application on the RSA network and allows any client laptop to access this GUI. From this web application, 
+											these clients can control different RSA systems and view streams, anomalies, and suggested actions.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_network.png" alt="" />
+										</div>
+											
+										<p style="text-indent: 2em;">To train the convolutional neural nets, both custom and open-source datasets 
+											were curated for this project. The open-source datasets did not have very high quality data and labels 
+											for rust/corrosion and pipe leaks. To augment these datasets and provide better quality data, a custom 
+											dataset was extracted from a flow loop test bed provided by the Intelligence for Advanced Nuclear Laboratory 
+											(iFAN Lab). This test bed offered a physical nuclear power plant representation that this custom dataset 
+											could be extracted from.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_flowloop.png" alt="" />
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_flowloop_table.png" alt="" />
+										</div>
+
+										<p style="text-indent: 2em;">Three models were developed after rigorous training. A rust/corrosion model,  
+											a pipe leak model, and a plant part classifier. All of these models performed very well when verifying 
+											the system, with slightly better performance on the rust/corrosion and the plant part classifier models. 
+											The plant part classifier was trained on six different classes (collected from the iFAN Flow Loop Test Bench):
+											Buffer Tank, Fill Tank, Steam Generator, Nuclear Core Reactor, Motorized Valve, and Pump.
+										
+										<div class="image-center">
+											<img src="../images/project_images/rsa_pcc_val_batch_pred.jpg" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_pcc_confusion_matrix.png" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_rust_val_batch_pred.jpg" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_rust_confusion_matrix.png" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_leak_val_batch_pred.jpg" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_leak_confusion_matrix.png" alt=""/>
+										</div>
+
+										<p style="text-indent: 2em;">For a quick validation of the PCC model, the model was run on the following video to get 
+											these results:
+
+										<div class="video-container">
+											<iframe
+												src="https://www.youtube.com/embed/WD5m79dHbuY"
+												title="RSA System Plant Part Classifier (PCC) Model Verification"
+												frameborder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen>
+											</iframe>
+										</div>	
+
+										<p style="text-indent: 2em;">For the full system evaluation, three objectives were established (fully test software, integrate 
+											a robot platform to prove modularity, and stream video and control system via WiFi and Ethernet).
+
 										<p style="text-indent: 2em;">The first evaluation objective was a software evaluation. The goal of this was 
-											to test thermal anomalies, visible leak anomalies, and visible rust/corrosion anomalies. This was 
-											achieved in the iFAN lab by testing on the flow loop test bed.
-										<p style="text-indent: 2em;">The system onboard power also needed to be tested. This was done by simply running 
-											the system at full functionality for a few hours. The system ran for well over 2 hours which would be 
-											plenty of time for a standard inspection before a robot could return to its home station for recharging.
+											to test thermal anomalies on different plant parts, test visible leak anomalies, and test visible 
+											rust/corrosion anomalies. This was achieved in the iFAN lab by testing on the flow loop test bed.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_software_check.png" alt=""/>
+										</div>
+
 										<p style="text-indent: 2em;">For robot integration, a Unitree B1 robot dog with a Z1 robot arm was selected. 
 											This system was selected due to availability at Georgia Tech and was provided by the iFAN lab. The system 
 											had a 3D printed custom connection point for this robot’s end effector, and the RSA system was mounted to 
 											the robot. If a different end effector ever needed to be integrated with, the only change to the system
 											 would be the 3D printed back plate that can be removed, modified, and re-attached whenever needed.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_close_up_6.jpg" alt=""/>
+										</div>
+
 										<p style="text-indent: 2em;">For streaming and control, the RSA Supervisor needed to be tested. To do this the 
 											system was connected to a Wi-Fi network provided by the Unitree B3 robot and a client laptop was setup a 
-											few meters away on that same network. A configuration file was set to stream video to the IP address of that 
-											client laptop and the RSA Supervisor code was loaded on that machine. With the running of one bash file from 
-											the client, both the thermal and the visible stream appeared on the screen of the Ubuntu laptop. RSA system 
-											control also appeared on the client for supervised control of the processing pipeline. The robot was then 
-											teleoperated around and anomalies were able to be detected and classified. Using those classifications, 
-											suggested repair/action guidance was sent to the terminal in the client laptop. 
+											few meters away on that same network. A configuration file was set to stream video to the IP address of 
+											that client laptop and the RSA Supervisor code was loaded on that machine. The RSA-Video-Restreamer successfully 
+											grabbed the streamed UDP video frames and converted it to the WebRTC stream to be picked up by the RSA Supervisor 
+											Web GUI. Additionally, WebSocket messages such as Anomaly Checks, Anomalies, and RSA System Statuses were transmitted 
+											across the network between the RSA system and the RSA Supervisor successfully. RSA system control was handled with 
+											the Anomaly Check messages, while system monitoring and localization was handled by the Anomaly and Status messages 
+											appearing on the RSA Supervisor web application. The robot was then teleoperated around and anomalies were able to 
+											be detected and classified. Using those classifications, suggested repair/action guidance was sent to the RSA 
+											Supervisor in the client laptop.
+										<div class="image-center">
+											<img src="../images/project_images/rsa_supervisor_dog_lab_2.jpg" alt=""/>
+										</div>
+
 										<p style="text-indent: 2em;">This fully validated the RSA system in a lab environment. Further validation came 
 											from a full integration test and demo performed with another iFAN team at ICRA 2025 in Atlanta, GA. The other 
 											team was working on nuclear power plant robotic monitoring. This demo showed an integration of thermal and visible 
 											monitoring provided by the RSA system and radiation detection and monitoring by the other iFAN team. This 
 											demo won the best poster award at ICRA 2025.
-										<p style="text-indent: 2em;">The qualitative outcomes of the three software test cases, the onboard power test, 
-											the Unitree B3 integration, and the live-streaming of sensor data and system control point to the system’s 
-											innovative design and operational efficiency. With the success of the ICRA 2025 sensor fusion demo and further 
-											research already being performed by the Georgia Tech iFAN laboratory, this system will be receiving a lot of 
-											further development. This initial evaluation phase emphasized the promise of the system, indicating that with 
-											further refinement and comprehensive quantitative analysis, its applications could extend considerably. The 
-											system's performance in these scenarios suggests that it holds significant potential, warranting continued
-											 investment in its development to realize its full capabilities.
+
+										<div class="image-center">
+											<img src="../images/project_images/rsa_icra_integration.png" alt=""/>
+										</div>
+										<div class="image-center">
+											<img src="../images/project_images/rsa_icra.png" alt=""/>
+										</div>
+
+										<p style="text-indent: 2em;">The qualitative outcomes of the three software test cases, the Unitree B3 integration, 
+											and the livestreaming sensor data and system control point to the system’s innovative design and operational 
+											efficiency. With the success of the ICRA 2025 sensor fusion demo and further research already being performed 
+											by the Georgia Tech iFAN laboratory, this system will be receiving a lot of further development. This initial 
+											evaluation phase underscored the promise of the system, indicating that with further refinement and comprehensive 
+											quantitative analysis, its applications could extend considerably. The system's performance in these scenarios 
+											suggests that it holds significant potential, warranting continued investment in its development to realize its 
+											full capabilities. As a proof-of-concept, this system not only meets the theoretical expectations but also lays 
+											a strong foundation for future advancements and practical implementations.
+										<div class="image-center">
+											<img src="../images/project_images/rsa_jacob.jpg" alt=""/>
+										</div>
+
+										<p style="text-indent: 2em;">Watch the following video for a brief overview of the RSA 1.0 system completed in Summer of 2025.
+											Note that further improvements to the system have already been completed (such as RSA Supervisor, device monitoring, 
+											and additional/improved AI models).
+
+										<div class="video-container">
+											<iframe
+												src="https://www.youtube.com/embed/rZPqpotmmhs"
+												title="Robotic Sensor Apparatus (RSA-System 1.0) For Nuclear Power Plant Facility Monitoring Verification"
+												frameborder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen>
+											</iframe>
+										</div>
+
 				<!-- Contact -->
 					<section id="contact">
 						<div class="inner">
