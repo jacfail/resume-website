@@ -4111,3 +4111,22 @@ input, select, textarea {
 		height: 100%;
 		border: 0;
 	}
+
+	.skills-list {
+	list-style: none;
+	padding: 0;
+	margin: 2rem auto;
+	max-width: 900px;
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 0.75rem 2rem;
+	}
+
+	.skills-list li {
+	line-height: 1.5;
+	}
+
+	.skills-list strong {
+	font-weight: 600;
+	}
