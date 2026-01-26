@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Jacob Faile - Resume Website</title>
+		<title>Jacob Faile - Learn More</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -28,7 +28,7 @@
 				<!-- Menu -->
 					<nav id="menu">
 						<ul class="links">
-							<li><a href="index.html">Home</a></li>
+							<li><a href="../index.html">Home</a></li>
 							<li class="divider"></li>
 							<li class="menu-title">👤 Professional Profile</li>
 							<li><a href="../profile_tile_pages/biography.html">Biography</a></li>
@@ -54,144 +54,41 @@
 						</ul>
 					</nav>
 
-				<!-- Banner -->
-				<!-- Note: The "styleN" class below should match that of the header element. -->
-					<section id="banner" class="style2">
-						<div class="inner">
-							<span class="image">
-								<img src="../images/main_page_images/game_ai.png" alt="" />
-							</span>
-							<header class="major">
-								<h1>Game AI Projects</h1>
-							</header>
-							<div class="content">
-								<p>Procedural Content Generation, Racing, Path Planning, Dodgeball</p>
-							</div>
-						</div>
-					</section>
-
 				<!-- Main -->
-					<div id="main">
+					<div id="main" class="alt">
 
-						<!-- ===================== -->
-						<!-- Game AI -->
-						<!-- ===================== -->
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+                                    <i class="fas fa-wrench fa-5x" style="color: #3498db; margin-bottom: 20px;"></i>
+									<header class="major">
+										<h1>Page Under Construction</h1>
+									</header>
 
-						<section id="pcg">
-							<div class="inner">
-								<header class="major">
-									<h2>Procedural Content Generation</h2>
-								</header>
-								<p>Algorithmic generation of levels, maps, and environments.</p>
-							</div>
-						</section>
+									<!-- Content -->
+										<h2 id="content">Details coming soon!</h2>
 
-						<section class="spotlights">
-							<section>
-								<a href="../project_pages/wip_project" class="image">
-									<img src="../images/project_type_images/pcg.png" alt="" />
-								</a>
-								<div class="content">
-									<div class="inner">
-										<header class="major">
-											<h3>Procedural Content Generation in Unity</h3>
-										</header>
-										<p>Rule-based and algorithmic level generation.</p>
-										<ul class="actions">
-											<li><a href="../project_pages/wip_project" class="button">Learn more</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-						</section>
+										<!-- <div class="image-center">
+											<img src="../images/project_images/rsa_dog_flowloop_1.jpg" alt="" />
+										</div>
 
-						<section id="autonomous_control">
-							<div class="inner">
-								<header class="major">
-									<h2>Autonomous Control</h2>
-								</header>
-								<p>Continuous control and decision-making for autonomous agents.</p>
-							</div>
-						</section>
+										<p style="text-indent: 2em;">This project was my Robotics Masters Capstone Project and was a 
+											culmination of almost two years of research, development, prototyping, and evaluation. I was 
+											able to create a whole product from conception to TRL 4 prototype demonstrated in a lab 
+											environment over that time period. I came up with the initial concepts and successfully led a 
+											team of four students in the development of this prototype. The project is still in active 
+											development at Georgia Tech in the Intelligence for Advanced Nuclear Lab under Dr. Fan Zhang. -->
 
-						<section class="spotlights">
-							<section>
-								<a href="../project_pages/wip_project" class="image">
-									<img src="../images/project_type_images/racing.png" alt="" />
-								</a>
-								<div class="content">
-									<div class="inner">
-										<header class="major">
-											<h3>Fuzzy Logic Racing Agent</h3>
-										</header>
-										<p>Continuous decision-making using fuzzy control.</p>
-										<ul class="actions">
-											<li><a href="../project_pages/wip_project" class="button">Learn more</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-						</section>
-
-
-						<section id="game_ai_path_planning">
-							<div class="inner">
-								<header class="major">
-									<h2>Game AI Path Planning</h2>
-								</header>
-								<p>Navigation and pathfinding for game agents.</p>
-							</div>
-						</section>
-
-						<section class="spotlights">
-							<section>
-								<a href="../project_pages/wip_project" class="image">
-									<img src="../images/project_type_images/navmesh.png" alt="" />
-								</a>
-								<div class="content">
-									<div class="inner">
-										<header class="major">
-											<h3>Grid & Network-Based Path Planning</h3>
-										</header>
-										<p>A* navigation on lattice and waypoint graphs.</p>
-										<ul class="actions">
-											<li><a href="../project_pages/wip_project" class="button">Learn more</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-						</section>
-
-
-						<section id="fsm">
-							<div class="inner">
-								<header class="major">
-									<h2>Finite State Machines</h2>
-								</header>
-								<p>Multi-agent decision-making using finite state machines.</p>
-							</div>
-						</section>
-
-						<section class="spotlights">
-							<section>
-								<a href="../project_pages/wip_project" class="image">
-									<img src="../images/project_type_images/dodgeball.png" alt="" />
-								</a>
-								<div class="content">
-									<div class="inner">
-										<header class="major">
-											<h3>FSM-Based Dodgeball AI</h3>
-										</header>
-										<p>Finite state machine agents for multi-agent gameplay.</p>
-										<ul class="actions">
-											<li><a href="../project_pages/wip_project" class="button">Learn more</a></li>
-										</ul>
-									</div>
-								</div>
-							</section>
-						</section>
-
-					</div>
+										
+										<!-- <div class="video-container">
+											<iframe
+												src="https://www.youtube.com/embed/WD5m79dHbuY"
+												title="RSA System Plant Part Classifier (PCC) Model Verification"
+												frameborder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen>
+											</iframe>
+										</div>	 -->
 
 
 				<!-- Contact -->
