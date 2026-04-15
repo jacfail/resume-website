@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jacob Faile - KNN Vision Classifier</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div class="page">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="../index.html" class="logo"><strong>Jacob Faile</strong> <span>Robotics and Software</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../index.html">Home</a></li>
+							<li class="divider"></li>
+							<li class="menu-title">👤 Professional Profile</li>
+							<li><a href="../profile_tile_pages/biography.html">Biography</a></li>
+							<li><a href="../profile_tile_pages/core_compentencies_technical_skills.html">Core Competencies</a></li>
+							<li><a href="../profile_tile_pages/core_compentencies_technical_skills.html">Technical Skills</a></li>
+							<li><a href="../profile_tile_pages/work_experience.html">Relevent Work Experience</a></li>
+							<li><a href="../profile_tile_pages/education.html">Education</a></li>
+							<li><a href="../profile_tile_pages/certifications.html">Certifications</a></li>
+							<li><a href="../profile_tile_pages/volunteer_recreation.html">Volunteer/Recreation</a></li>
+							<li class="menu-title">📁 Projects</li>
+							<li><a href="../project_pages/ms_capstone_project.html">M.S. Capstone Project</a></li>
+							<li><a href="../project_pages/bs_capstone_project.html">B.S. Capstone Project</a></li>
+							<li><a href="../project_tile_pages/computer_vision.html">Computer Vision</a></li>
+							<li><a href="../project_tile_pages/machine_learning.html">Machine Learning</a></li>
+							<li><a href="../project_tile_pages/nlp.html">Natural Language Processing</a></li>
+							<li><a href="../project_tile_pages/robotics_control_systems.html">Robotics and Control Systems</a></li>
+							<li><a href="../project_tile_pages/ai_search_decision_making.html">AI Search and Decision Making</a></li>
+							<li><a href="../project_tile_pages/game_ai.html">Game AI</a></li>
+							<li class="divider"></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="#contact" class="button primary fit">Contact Me</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>KNN Vision Classifier for Robotics</h1>
+									</header>
+
+										
+										<p style="text-indent: 2em;">For a lab project as part of my Robotics Master's degree at Georgia Institute of Technology, an algorithm was developed to classify signs used for an autonomous maze navigation project. To do this, a K-Nearest Neighbors (KNN) model was developed with OpenCV due to its simplicity and effectiveness for small-to-medium-sized datasets. The model was trained on signs that looked like the following.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/KNN_Vision_Classifier_For_Robotics/knn_robot_2.png" alt="Maze Nav Signs" />
+										</div>
+										
+										
+
+										<p style="text-indent: 2em;">KNN is a supervised learning algorithm that classifies new data points based on their similarity to previously seen examples. Rather than learning an explicit model, KNN stores all training data and, during inference, compares a new input to its k closest neighbors in feature space. The predicted class is determined by the most common label among these neighbors. In this project, a value of k = 1 was chosen, meaning each image is classified based on its single most similar training example.</p>
+
+										<p style="text-indent: 2em;">This project had two main scripts: a training script for generating the KNN model and an image classifier script for evaluating and deploying the trained model.</p>
+
+										<p style="text-indent: 2em;">The training script builds the classifier from labeled image data. Each image undergoes preprocessing to isolate the sign using HSV-based color segmentation for red, blue, and green regions. Morphological operations (erosion and dilation) reduce noise, and the image is cropped to the detected sign region to make inference easier. The result is resized to a fixed resolution (33×25) and flattened into a feature vector. These vectors are paired with labels and used to train the KNN model, which is then saved for later use.</p>
+
+										<p style="text-indent: 2em;">The image classifier script loads the trained model and applies the same preprocessing pipeline to unseen test images. Each processed image is converted into a feature vector and passed into the KNN classifier, where it is compared against stored training examples to determine the closest match. The script evaluates performance by computing classification accuracy and generating a confusion matrix, with optional debug visualization for intermediate processing steps.</p>
+
+										<p style="text-indent: 2em;">This image classifier, once verified, was plugged into the autonomous maze navigation project to assist in getting the physical robot to its goal destination.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/KNN_Vision_Classifier_For_Robotics/knn_robot_1.jpg" alt="Maze Nav Signs" />
+										</div>
+										
+										<b>Technical Highlights</b>
+
+										<ul style="margin-left: 4em;">
+											<li>Computer vision (image preprocessing and classification)</li>
+											<li>K-Nearest Neighbors (KNN) algorithm</li>
+											<li>Supervised machine learning</li>
+											<li>Model evaluation and validation</li>
+											<li>Hyperparameter tuning (k-value selection)</li>
+											<li>Dataset generalization and cross-validation</li>
+											<li>Python scripting and CLI-based tools</li>
+											<li>OpenCV, NumPy, and data handling</li>
+										</ul>
+								</div>
+								
+
+
+				<!-- Contact -->
+					<section id="contact">
+						<div class="inner">
+							<section class="split">
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-envelope"></span>
+										<h3>Email</h3>
+										<span>jacobcfaile@gmail.com<span>
+									</div>
+								</section>
+								<!-- <section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-phone"></span>
+										<h3>Phone</h3>
+										<span>(XXX) XXX-XXXX</span>
+									</div>
+								</section> -->
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-home"></span>
+										<h3>Current Location</h3>
+										<span>North of Atlanta, GA<br />
+										United States of America</span>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon brands alt fa-linkedin-in"></span>
+										<h3>LinkedIn</h3>
+										<a href="https://www.linkedin.com/in/jacob-faile/">Click to visit</a>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon brands alt fa-github"></span>
+										<h3>GitHub</h3>
+										<a href="https://github.com/jacfail">Click to visit</a>
+									</div>
+								</section>
+							</section>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!-- <ul class="icons">
+								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul> -->
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

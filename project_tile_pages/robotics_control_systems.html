@@ -93,7 +93,7 @@
 								<div class="content"><div class="inner">
 									<header class="major"><h3>Autonomous Maze Navigation Robot</h3></header>
 									<p style="text-indent: 2em;">
-										This project focused on developing an autonomous maze-navigation system for a TurtleBot as the final capstone for my 
+										This project focused on developing an autonomous maze-navigation system for a mobile robot as the final capstone for my 
 										Robotics Research course at Georgia Tech. The robot successfully navigated complex environments by combining LiDAR-based 
 										obstacle detection, vision-based sign recognition, and odometry-driven motion control 
 										(<i>robot perception</i>, <i>computer vision</i>, <i>machine learning</i>, <i>sensor fusion</i>, <i>autonomous navigation algorithms</i>). 
@@ -105,25 +105,31 @@
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image"><img src="../images/project_type_images/slam_navigation.png" alt="" /></a>
+								<a href="../project_pages/robotics_slam_nav.html" class="image"><img src="../images/project_type_images/slam_navigation.png" alt="" /></a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>SLAM-Based Mobile Robot Navigation</h3></header>
-									<p>Localization, mapping, and path planning in sim and real environments.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>This project focuses on implementing autonomous robot navigation using SLAM-generated maps, enabling a mobile robot to localize 
+										itself, plan paths, and navigate to predefined goal positions. A custom ROS2 node was developed to sequentially read goal poses 
+										from a file, publish them to the navigation stack, and verify successful arrival using real-time feedback. The system was validated 
+										in both simulation and real-world environments using TurtleBot3, demonstrating end-to-end autonomy from mapping to goal execution.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_slam_nav.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image"><img src="../images/project_type_images/dead_reckoning.png" alt="" /></a>
+								<a href="../project_pages/robotics_dead_reckoning.html" class="image"><img src="../images/project_type_images/dead_reckoning.png" alt="" /></a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>Dead Reckoning & Obstacle Avoidance</h3></header>
-									<p>Odometry-driven navigation with reactive LiDAR control.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>This project implements autonomous waypoint navigation for a mobile robot operating in an environment with unknown obstacles. 
+										Using onboard odometry and dead reckoning, the robot estimates its global position and navigates through a sequence of goal 
+										points defined in a file. A combination of real-time obstacle detection and multiple PID controllers enables the robot to 
+										reach each waypoint safely while maintaining stability, accuracy, and timing constraints.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_dead_reckoning.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image">
+								<a href="../project_pages/robotics_object_chaser.html" class="image">
 									<video autoplay loop muted playsinline width="100%" height="auto">
 										<source src="../images/project_type_images/objectchaser.mp4" type="video/mp4">
 										Your browser does not support the video tag.
@@ -131,35 +137,45 @@
 								</a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>PID-Controlled Object Chaser</h3></header>
-									<p>Visual tracking using CV-based object detection combined with feedback control.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>This project implements a real-time object-following system in which a mobile robot detects and tracks a blue ball using computer 
+										vision and LiDAR. By fusing camera and range sensor data, the robot estimates the object’s position in its local frame and 
+										uses PID controllers to maintain both orientation and a desired following distance. The system demonstrates robust 
+										perception and control through continuous visual tracking and adaptive motion.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_object_chaser.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image"><img src="../images/project_type_images/knn_image_classifier_maze.jpg" alt="" /></a>
+								<a href="../project_pages/robotics_knn_classifier.html" class="image"><img src="../images/project_type_images/knn_image_classifier_maze.jpg" alt="" /></a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>KNN Vision Classifier for Robotics</h3></header>
-									<p>Lightweight image classification for robot perception.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>This project implements a computer vision-based image classification system for recognizing directional signs in a robotics maze navigation task. 
+										Using a K-Nearest Neighbors (KNN) model, the system classifies images into navigation-relevant categories, enabling downstream decision-making 
+										for autonomous robots. Multiple models were trained and evaluated across datasets, with performance-driven selection of the final model for 
+										deployment. This model was utilized in the autonomous maze navigation project shown above.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_knn_classifier.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image"><img src="../images/project_type_images/rosbot.jpg" alt="" /></a>
+								<a href="../project_pages/robotics_right_wall_follow.html" class="image"><img src="../images/project_type_images/rosbot.jpg" alt="" /></a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>ROSbot with Right Wall Following Algorithm</h3></header>
-									<p>Right-wall following algorithm implemented in a simulator and on a physical mobile robot in ROS.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>A right-wall-following navigation algorithm for a mobile robot as part of an undergraduate mechatronics course at Kennesaw State 
+										University. The system was developed using ROS1 on a ROSbot, processing real-time LiDAR data from a RPLIDAR A2 to generate 
+										velocity commands in C++. The controller enabled reactive wall-following and obstacle avoidance based on sampled scan points 
+										and was validated in both physical testing and Gazebo.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_right_wall_follow.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 
 							<section>
-								<a href="../project_pages/wip_project.html" class="image"><img src="../images/project_type_images/vex_robotics.jpg" alt="" /></a>
+								<a href="../project_pages/robotics_vex_competition.html" class="image"><img src="../images/project_type_images/vex_robotics.jpg" alt="" /></a>
 								<div class="content"><div class="inner">
 									<header class="major"><h3>Vex Robotics Competition - The Unicorn</h3></header>
-									<p>Team designed, constructed, and programmed a clawbot capable of remotely-controlled and autonomous tasks that ended up winning first prize in the semester school-wide Vex Robotics competition.</p>
-									<ul class="actions"><li><a href="../project_pages/wip_project.html" class="button">Learn more</a></li></ul>
+									<p>Team designed, constructed, and programmed a clawbot capable of remotely-controlled and autonomous tasks that ended up winning first prize 
+										in the semester school-wide Vex Robotics competition.</p>
+									<ul class="actions"><li><a href="../project_pages/robotics_vex_competition.html" class="button">Learn more</a></li></ul>
 								</div></div>
 							</section>
 						</section>

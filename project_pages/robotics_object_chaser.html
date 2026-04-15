@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Jacob Faile - Maze Navigation</title>
+		<title>Jacob Faile - Object Chaser</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -62,74 +62,47 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h1>Autonomous Maze Navigation Robot</h1>
+										<h1>PID-Controlled Object Chaser</h1>
 									</header>
 
-										<p style="text-indent: 2em;">This project served as the final capstone for a Robotics Research course during my M.S. program at Georgia Tech. The objective was to autonomously navigate a maze environment using a TurtleBot equipped with odometry, LiDAR sensing, and onboard computer vision.</p>
+										
+										<p style="text-indent: 2em;">For a lab project as part of my Robotics Master's degree at Georgia Institute of Technology, a codebase was developed to interface with the open-source TurtleBot3 Burger.</p>
+
+										<p style="text-indent: 2em;">Using ROS2, the goal of the project was to enable the robot to detect a specific object and autonomously follow it as it moves. The system combined computer vision techniques with PID controllers to accomplish this task. Three ROS2 nodes were developed: the <code>detect_object</code> node, <code>get_object_range</code> node, and <code>chase_object</code> node.</p>
 
 										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_1.png" alt="Maze" />
-										</div>
-
-										<p style="text-indent: 2em;">The system was implemented in Python using ROS2 and designed around three custom ROS nodes responsible for perception, sign recognition, and autonomous decision-making.</p>
-
-										<p style="text-indent: 2em;"><strong>1. Detect Obstacle Node</strong></p>
-
-										<p style="text-indent: 2em;">This node performs real-time obstacle detection using LiDAR scan data, estimating both the distance and orientation of nearby objects relative to the robot. It computes the closest obstacle as well as directional range measurements (front, right, back, and left) to support safe navigation.</p>
-
-										<p style="text-indent: 2em;">To improve robustness, the node applies weighted average filtering to reduce noise in the raw range readings. It subscribes to the <code>/scan</code> topic and publishes a <code>Float64MultiArray</code> message on <code>/range_data</code>, containing ten values representing obstacle distances and angles across key directions.</p>
-
-										<p style="text-indent: 2em;"><strong>2. Classify Sign Node</strong></p>
-
-										<p style="text-indent: 2em;">This node enables semantic understanding of the maze by classifying directional signs using a custom-trained K-Nearest Neighbors (KNN) image classifier. Images are captured from the TurtleBot's Raspberry Pi camera and processed in real time. This process is outlined in the diagram below.</p>
-
-										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_2.png" alt="Maze Diagram and Signs" />
-										</div>
-
-										<p style="text-indent: 2em;">The node subscribes to <code>/camera/image/compressed</code> and performs a full preprocessing pipeline before inference, including: color masking &rarr; erosion for noise removal &rarr; dilation for gap filling &rarr; region-of-interest cropping &rarr; resizing to model input dimensions.</p>
-
-										<p style="text-indent: 2em;">After preprocessing, the classifier outputs one of the maze sign categories and publishes the result to the <code>/sign_class</code> topic. The recognized classes include: 0 = Empty Wall, 1 = Left Turn, 2 = Right Turn, 3 = Do Not Enter, 4 = Stop, 5 = Goal.</p>
-
-										<p style="text-indent: 2em;"><strong>3. Go to Goal Node</strong></p>
-
-										<p style="text-indent: 2em;">This node serves as the core navigation and control module, integrating obstacle proximity data, sign classification results, and robot odometry to autonomously traverse the maze.</p>
-
-										<p style="text-indent: 2em;">It subscribes to the <code>/range_data</code> topic to detect frontal obstacles and determine when decision-making is required. It also uses the TurtleBot's <code>/odom</code> feedback to execute precise motion primitives such as left turns, right turns, and turn-arounds.</p>
-
-										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_3.png" alt="Terminal Output" />
+											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/PID_Controlled_Object_Chaser/object_chaser_1.png" alt="Object Chaser" />
 										</div>
 										
-										<p style="text-indent: 2em;">By computing the angular difference between the robot's initial heading and its current odometry orientation, the node accurately measures rotation progress during each maneuver. When an obstacle is detected, the node queries the current sign classification from <code>/sign_class</code> and selects the appropriate navigation behavior.</p>
+										<p style="text-indent: 2em;">The <code>detect_object</code> node subscribed to the Raspberry Pi camera topic and applied computer vision techniques such as masking, erosion, and dilation to identify a blue ball in the image frame. The center of the object was determined in pixel space and published to the <code>get_object_range</code> node.</p>
 
-										<p style="text-indent: 2em;">Finally, the node publishes velocity commands to <code>/cmd_vel</code>, enabling closed-loop autonomous movement through the maze environment.</p>
+										<p style="text-indent: 2em;">The <code>get_object_range</code> node subscribed to the <code>detect_object</code> node and received the object's pixel coordinates. Using the camera's intrinsic parameters, it converted pixel values into angular measurements (degrees/radians) and mapped this position to a corresponding angle on the robot's 360-degree LiDAR. It then queried the <code>/scan</code> topic to obtain the object's distance and published both the angular position and range to the <code>chase_object</code> node.</p>
 
-										<p style="text-indent: 2em;">Overall, this project represented the culmination of a semester of applied robotics research, combining classical perception methods, machine learning-based sign recognition, and sensor-driven control. The final ROS2 system successfully demonstrated fully autonomous maze navigation through the integration of LiDAR sensing, vision-based decision-making, and odometry feedback.</p>
+										<p style="text-indent: 2em;">The <code>chase_object</code> node subscribed to the <code>get_object_range</code> node and used the object's angular position and distance to control the robot. Two PID (proportional, integral, derivative) controllers were implemented: one for linear control to maintain a set distance from the object, and one for angular control to keep the robot oriented toward it. These controllers generated linear and angular velocity commands, which were published to the <code>/cmd_vel</code> topic to drive the robot's motion.</p>
 
-										<p style="text-indent: 2em;"></p>
 										<b>Technical Highlights</b>
 
 										<ul style="margin-left: 4em;">
-											<li>ROS2 node-based architecture and inter-node communication</li>
-											<li>Autonomous mobile robot navigation and control</li>
-											<li>LiDAR perception and obstacle avoidance algorithms</li>
-											<li>Odometry-based motion estimation and turn control</li>
-											<li>Classical computer vision preprocessing (masking, morphology, ROI extraction)</li>
-											<li>Machine learning classification using K-Nearest Neighbors (KNN)</li>
-											<li>Sensor fusion for decision-making in structured environments</li>
-											<li>Python robotics development and real-time topic-based inference</li>
+											<li>ROS2 (multi-node architecture, topics, publishers/subscribers)</li>
+											<li>Computer vision (color-based object detection)</li>
+											<li>Sensor fusion (camera + LiDAR)</li>
+											<li>Coordinate transformations (pixel space → angular space)</li>
+											<li>PID control systems (linear and angular control)</li>
+											<li>Real-time feedback control loops</li>
+											<li>Mobile robot kinematics and motion control</li>
+											<li>Embedded systems and Linux-based robotics</li>
 										</ul>
 
 										<div class="video-container">
 											<iframe
-												src="https://www.youtube.com/embed/dvoc4KnhIJw"
-												title="Autonomous Maze Navigation"
+												src="https://www.youtube.com/embed/PD0ef-QyqP4 "
+												title="Object Detection and Autonomous Following - TurtleBot3 Demo"
 												frameborder="0"
 												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen>
 											</iframe>
-										</div>						
+										</div>		
+
 								</div>
 								
 

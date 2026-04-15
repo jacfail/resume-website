@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Jacob Faile - Maze Navigation</title>
+		<title>Jacob Faile - Dead Reckoning</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -62,74 +62,49 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h1>Autonomous Maze Navigation Robot</h1>
+										<h1>Dead Reckoning & Obstacle Avoidance</h1>
 									</header>
 
-										<p style="text-indent: 2em;">This project served as the final capstone for a Robotics Research course during my M.S. program at Georgia Tech. The objective was to autonomously navigate a maze environment using a TurtleBot equipped with odometry, LiDAR sensing, and onboard computer vision.</p>
+										
+
+										<p style="text-indent: 2em;">For a lab project as part of my Robotics Master's degree at Georgia Institute of Technology, a codebase was developed to interface with the open-source TurtleBot3 Burger.</p>
+
+										<p style="text-indent: 2em;">Using ROS2, the goal of the project was to implement an obstacle avoidance and global navigation algorithm that leveraged onboard odometry and LiDAR scan topics. The robot was required to navigate to multiple global waypoints within a defined success threshold, while avoiding unknown obstacles, preventing collisions, and meeting time constraints.</p>
 
 										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_1.png" alt="Maze" />
-										</div>
-
-										<p style="text-indent: 2em;">The system was implemented in Python using ROS2 and designed around three custom ROS nodes responsible for perception, sign recognition, and autonomous decision-making.</p>
-
-										<p style="text-indent: 2em;"><strong>1. Detect Obstacle Node</strong></p>
-
-										<p style="text-indent: 2em;">This node performs real-time obstacle detection using LiDAR scan data, estimating both the distance and orientation of nearby objects relative to the robot. It computes the closest obstacle as well as directional range measurements (front, right, back, and left) to support safe navigation.</p>
-
-										<p style="text-indent: 2em;">To improve robustness, the node applies weighted average filtering to reduce noise in the raw range readings. It subscribes to the <code>/scan</code> topic and publishes a <code>Float64MultiArray</code> message on <code>/range_data</code>, containing ten values representing obstacle distances and angles across key directions.</p>
-
-										<p style="text-indent: 2em;"><strong>2. Classify Sign Node</strong></p>
-
-										<p style="text-indent: 2em;">This node enables semantic understanding of the maze by classifying directional signs using a custom-trained K-Nearest Neighbors (KNN) image classifier. Images are captured from the TurtleBot's Raspberry Pi camera and processed in real time. This process is outlined in the diagram below.</p>
-
-										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_2.png" alt="Maze Diagram and Signs" />
-										</div>
-
-										<p style="text-indent: 2em;">The node subscribes to <code>/camera/image/compressed</code> and performs a full preprocessing pipeline before inference, including: color masking &rarr; erosion for noise removal &rarr; dilation for gap filling &rarr; region-of-interest cropping &rarr; resizing to model input dimensions.</p>
-
-										<p style="text-indent: 2em;">After preprocessing, the classifier outputs one of the maze sign categories and publishes the result to the <code>/sign_class</code> topic. The recognized classes include: 0 = Empty Wall, 1 = Left Turn, 2 = Right Turn, 3 = Do Not Enter, 4 = Stop, 5 = Goal.</p>
-
-										<p style="text-indent: 2em;"><strong>3. Go to Goal Node</strong></p>
-
-										<p style="text-indent: 2em;">This node serves as the core navigation and control module, integrating obstacle proximity data, sign classification results, and robot odometry to autonomously traverse the maze.</p>
-
-										<p style="text-indent: 2em;">It subscribes to the <code>/range_data</code> topic to detect frontal obstacles and determine when decision-making is required. It also uses the TurtleBot's <code>/odom</code> feedback to execute precise motion primitives such as left turns, right turns, and turn-arounds.</p>
-
-										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Autonomous_Maze_Navigation_Robot/robotics_maze_nav_3.png" alt="Terminal Output" />
+											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/Dead_Reckoning_and_Obstacle_Avoidance/dead_reckoning_robot_1.png" alt="Dead Reckoning" />
 										</div>
 										
-										<p style="text-indent: 2em;">By computing the angular difference between the robot's initial heading and its current odometry orientation, the node accurately measures rotation progress during each maneuver. When an obstacle is detected, the node queries the current sign classification from <code>/sign_class</code> and selects the appropriate navigation behavior.</p>
+										<p style="text-indent: 2em;">Using onboard odometry and dead reckoning, the robot's position in the global frame was continuously estimated. The 360-degree LiDAR sensor enabled real-time detection and avoidance of obstacles in the environment.</p>
 
-										<p style="text-indent: 2em;">Finally, the node publishes velocity commands to <code>/cmd_vel</code>, enabling closed-loop autonomous movement through the maze environment.</p>
+										<p style="text-indent: 2em;">To achieve this, two communicating nodes were implemented. The <code>get_object_range</code> node detected the range and orientation of obstacles in the robot's local frame. It subscribed to the <code>/scan</code> topic to receive LiDAR data, processed all range measurements across each rotation, identified the closest obstacle, computed a weighted average of ranges in that direction (excluding NaN values), and published the resulting angle and distance to the <code>go_to_goal</code> node.</p>
 
-										<p style="text-indent: 2em;">Overall, this project represented the culmination of a semester of applied robotics research, combining classical perception methods, machine learning-based sign recognition, and sensor-driven control. The final ROS2 system successfully demonstrated fully autonomous maze navigation through the integration of LiDAR sensing, vision-based decision-making, and odometry feedback.</p>
+										<p style="text-indent: 2em;">The <code>go_to_goal</code> node controlled the robot using the processed obstacle data. It first read target waypoints from a text file, then used two PID (proportional, integral, derivative) controllers—one for angular velocity and one for linear velocity—to navigate toward each goal. When an obstacle was detected within a defined threshold, the node transformed the local obstacle position into global coordinates and initiated a left wall-following behavior. Once the path to the goal was clear, the robot resumed direct navigation. The PID controllers continuously generated the linear and angular velocity commands sent to the robot's motors.</p>
 
-										<p style="text-indent: 2em;"></p>
 										<b>Technical Highlights</b>
 
 										<ul style="margin-left: 4em;">
-											<li>ROS2 node-based architecture and inter-node communication</li>
-											<li>Autonomous mobile robot navigation and control</li>
-											<li>LiDAR perception and obstacle avoidance algorithms</li>
-											<li>Odometry-based motion estimation and turn control</li>
-											<li>Classical computer vision preprocessing (masking, morphology, ROI extraction)</li>
-											<li>Machine learning classification using K-Nearest Neighbors (KNN)</li>
-											<li>Sensor fusion for decision-making in structured environments</li>
-											<li>Python robotics development and real-time topic-based inference</li>
+											<li>ROS2 (nodes, topics, publishers/subscribers)</li>
+											<li>Dead reckoning and odometry-based localization</li>
+											<li>PID control systems (linear and angular control)</li>
+											<li>Obstacle detection with LiDAR</li>
+											<li>Reactive obstacle avoidance</li>
+											<li>Waypoint-based navigation</li>
+											<li>Coordinate transformations and vector-based motion</li>
+											<li>Real-time robotic control systems</li>
+											<li>Embedded robotics on Linux platforms</li>
 										</ul>
 
 										<div class="video-container">
 											<iframe
-												src="https://www.youtube.com/embed/dvoc4KnhIJw"
-												title="Autonomous Maze Navigation"
+												src="https://www.youtube.com/embed/M_hx0Dk3Czw "
+												title="Dead Reckoning and Obstacle Avoidance - TurtleBot3 Demo"
 												frameborder="0"
 												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen>
 											</iframe>
-										</div>						
+										</div>		
+
 								</div>
 								
 
