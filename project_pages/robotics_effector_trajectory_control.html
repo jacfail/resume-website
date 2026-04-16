@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Jacob Faile - End-Effector Trajectory Control</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div class="page">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<a href="../index.html" class="logo"><strong>Jacob Faile</strong> <span>Robotics and Software</span></a>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<ul class="links">
+							<li><a href="../index.html">Home</a></li>
+							<li class="divider"></li>
+							<li class="menu-title">👤 Professional Profile</li>
+							<li><a href="../profile_tile_pages/biography.html">Biography</a></li>
+							<li><a href="../profile_tile_pages/core_compentencies_technical_skills.html">Core Competencies</a></li>
+							<li><a href="../profile_tile_pages/core_compentencies_technical_skills.html">Technical Skills</a></li>
+							<li><a href="../profile_tile_pages/work_experience.html">Relevent Work Experience</a></li>
+							<li><a href="../profile_tile_pages/education.html">Education</a></li>
+							<li><a href="../profile_tile_pages/certifications.html">Certifications</a></li>
+							<li><a href="../profile_tile_pages/volunteer_recreation.html">Volunteer/Recreation</a></li>
+							<li class="menu-title">📁 Projects</li>
+							<li><a href="../project_pages/ms_capstone_project.html">M.S. Capstone Project</a></li>
+							<li><a href="../project_pages/bs_capstone_project.html">B.S. Capstone Project</a></li>
+							<li><a href="../project_tile_pages/computer_vision.html">Computer Vision</a></li>
+							<li><a href="../project_tile_pages/machine_learning.html">Machine Learning</a></li>
+							<li><a href="../project_tile_pages/nlp.html">Natural Language Processing</a></li>
+							<li><a href="../project_tile_pages/robotics_control_systems.html">Robotics and Control Systems</a></li>
+							<li><a href="../project_tile_pages/ai_search_decision_making.html">AI Search and Decision Making</a></li>
+							<li><a href="../project_tile_pages/game_ai.html">Game AI</a></li>
+							<li class="divider"></li>
+						</ul>
+						<ul class="actions stacked">
+							<li><a href="#contact" class="button primary fit">Contact Me</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main" class="alt">
+
+						<!-- One -->
+							<section id="one">
+								<div class="inner">
+									<header class="major">
+										<h1>End-Effector Trajectory Control</h1>
+									</header>
+										
+										<p style="text-indent: 2em;">This project implements end-point trajectory control for a simplified PUMA robot in MATLAB and Simulink, using a PID controller with Jacobian Transpose control to draw shapes and characters on a plane under gravity.</p>
+
+										<p style="text-indent: 2em;">In the first part, trajectories were planned and a controller was implemented to position the end effector of a simplified PUMA robot with gravity and draw three circles. A PID controller was developed that uses Jacobian Transpose control to compute the joint effort. The controller can be seen below.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_1.png" alt="PID Jacobian Transpose Controller Diagram" />
+										</div>
+
+										<p style="text-indent: 2em;">The first step was to calculate the trajectories needed for the three circles. An initial position of the robot was set up and fourth-order polynomial profiles were used to calculate the endpoint positions for a circle. The straight-line trajectory from the first circle to the second circle starting position was then calculated, and this process was repeated until a trajectory for three circles was obtained. The combined trajectory was then input into the PID controller. The PID controller took the displacement between the robot's current and target position and applied proportional, integral, and derivative control to compute the forces needed for control.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_2.png" alt="Initial Circle Drawing Results" />
+										</div>
+
+										<p style="text-indent: 2em;">These initial results were not perfect, so additional tuning was required. After trying several different gains, final values of P=25000, I=1000, and D=1000 were settled on. These gains computed the required end-point forces, which along with the joint angles were input into the joint torque calculation function. This provided Jacobian transpose control on the system using the homogeneous transformation matrix, the calculated Jacobian matrix, and the joint torque equation with the Jacobian transpose and forces to obtain the required joint effort. The robot successfully completed all three circles within the required error margins, achieving a maximum positioning error of 1.27 cm and an RMSE of 0.95 cm against the 3 cm and 1 cm requirements respectively.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_3.png" alt="Final Tuned Circle Drawing Results" />
+										</div>
+
+										<p style="text-indent: 2em;">The final Simulink model can be seen below.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_4.png" alt="Final Simulink Model" />
+										</div>
+
+										<p style="text-indent: 2em;">A video showing the simulated robot drawing these circles in Simscape can be found below.</p>
+
+										<video autoplay loop muted playsinline width="100%" height="auto">
+											<source src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/End_Effector_Trajectory_Control_Circles.mp4" type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+
+										<p style="text-indent: 2em;">In the following portion of the project, the same controller was applied without retuning to trace the hand-written word "ROBOTS" as a continuous single-stroke trajectory. A script was written to define a trajectory of six letters and the same controller was run on that new trajectory. The controller performed well, achieving a maximum positioning error of 2.13 cm and an RMSE of 1.00 cm, both within the required thresholds. The desired trajectory is shown first, followed by the reproduced trajectory.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_5.png" alt="Desired ROBOTS Trajectory" />
+										</div>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_6.png" alt="Reproduced ROBOTS Trajectory" />
+										</div>
+
+										<p style="text-indent: 2em;">The trajectory was then run on the simulated Simscape robot, as shown in the video below.</p>
+
+										<video autoplay loop muted playsinline width="100%" height="auto">
+											<source src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/End_Effector_Trajectory_Control_Robots.mp4" type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+
+										<p style="text-indent: 2em;">In the final part of this project, inverse kinematics was used to find joint configurations that maximize the manipulability measure while avoiding singularities for a set of given end-point positions. Theta 3 was iterated over candidate ranges, and solutions were evaluated numerically to identify the configuration with the highest manipulability at each position, with results tabulated and visualized.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_7.png" alt="Manipulability Results Table" />
+										</div>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/End_Effector_Trajectory_Control/end_effector_traj_control_8.png" alt="Manipulability Visualization" />
+										</div>
+
+										<p style="text-indent: 2em;">It's important to note that manipulability is equal for symmetric 3R robots about the x-axis. These values and the corresponding plots could be flipped in some ways to yield the same manipulability measure.</p>
+
+										<b>Technical Highlights</b>
+
+										<ul style="margin-left: 1em;">
+											<li>PID control with Jacobian Transpose control</li>
+											<li>Trajectory planning with fourth-order polynomial profiles</li>
+											<li>Jacobian matrix derivation &amp; end-point force mapping</li>
+											<li>Joint torque computation &amp; control</li>
+											<li>Manipulability measure maximization</li>
+											<li>Singularity avoidance via redundancy resolution</li>
+											<li>Forward &amp; inverse kinematics</li>
+											<li>MATLAB &amp; Simulink/Simscape integration</li>
+										</ul>
+
+										
+								</div>
+								
+
+
+				<!-- Contact -->
+					<section id="contact">
+						<div class="inner">
+							<section class="split">
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-envelope"></span>
+										<h3>Email</h3>
+										<span>jacobcfaile@gmail.com<span>
+									</div>
+								</section>
+								<!-- <section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-phone"></span>
+										<h3>Phone</h3>
+										<span>(XXX) XXX-XXXX</span>
+									</div>
+								</section> -->
+								<section>
+									<div class="contact-method">
+										<span class="icon solid alt fa-home"></span>
+										<h3>Current Location</h3>
+										<span>North of Atlanta, GA<br />
+										United States of America</span>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon brands alt fa-linkedin-in"></span>
+										<h3>LinkedIn</h3>
+										<a href="https://www.linkedin.com/in/jacob-faile/">Click to visit</a>
+									</div>
+								</section>
+								<section>
+									<div class="contact-method">
+										<span class="icon brands alt fa-github"></span>
+										<h3>GitHub</h3>
+										<a href="https://github.com/jacfail">Click to visit</a>
+									</div>
+								</section>
+							</section>
+						</div>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!-- <ul class="icons">
+								<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+							</ul> -->
+							<ul class="copyright">
+								<li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

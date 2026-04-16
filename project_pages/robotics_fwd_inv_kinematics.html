@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Jacob Faile - Object Chaser</title>
+		<title>Jacob Faile - Robot Arm Forward & Inverse Kinematics</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -62,47 +62,42 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h1>PID-Controlled Object Chaser</h1>
+										<h1>Robot Arm Forward & Inverse Kinematics</h1>
 									</header>
-
 										
-										<p style="text-indent: 2em;">For a lab project as part of my Robotics Master's degree at Georgia Institute of Technology, a codebase was developed to interface with the open-source TurtleBot3 Burger.</p>
+										<p style="text-indent: 2em;">This project implements forward and inverse kinematics for a 3-revolute-joint robot manipulator in MATLAB using homogeneous transformation matrices.</p>
 
-										<p style="text-indent: 2em;">Using ROS2, the goal of the project was to enable the robot to detect a specific object and autonomously follow it as it moves. The system combined computer vision techniques with PID controllers to accomplish this task. Three ROS2 nodes were developed: the <code>detect_object</code> node, <code>get_object_range</code> node, and <code>chase_object</code> node.</p>
+										<p style="text-indent: 2em;">The first task explores both directions of the kinematics problem. In the first part, given a set of joint angles (θ₁, θ₂, θ₃), the end-effector position is computed using forward kinematics by chaining transformation matrices T₀₁, T₁₂, and T₂₃.</p>
 
 										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/PID_Controlled_Object_Chaser/object_chaser_1.png" alt="Object Chaser" />
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Fwd_and_Inv_Kinematics/fwd_inv_kinematics_1.png" alt="Forward Kinematics Diagram" />
 										</div>
-										
-										<p style="text-indent: 2em;">The <code>detect_object</code> node subscribed to the Raspberry Pi camera topic and applied computer vision techniques such as masking, erosion, and dilation to identify a blue ball in the image frame. The center of the object was determined in pixel space and published to the <code>get_object_range</code> node.</p>
 
-										<p style="text-indent: 2em;">The <code>get_object_range</code> node subscribed to the <code>detect_object</code> node and received the object's pixel coordinates. Using the camera's intrinsic parameters, it converted pixel values into angular measurements (degrees/radians) and mapped this position to a corresponding angle on the robot's 360-degree LiDAR. It then queried the <code>/scan</code> topic to obtain the object's distance and published both the angular position and range to the <code>chase_object</code> node.</p>
+										<p style="text-indent: 2em;">Next, the process is reversed — given a target end-effector position, inverse kinematics equations are used to solve for the joint angles, yielding multiple valid posture solutions.</p>
 
-										<p style="text-indent: 2em;">The <code>chase_object</code> node subscribed to the <code>get_object_range</code> node and used the object's angular position and distance to control the robot. Two PID (proportional, integral, derivative) controllers were implemented: one for linear control to maintain a set distance from the object, and one for angular control to keep the robot oriented toward it. These controllers generated linear and angular velocity commands, which were published to the <code>/cmd_vel</code> topic to drive the robot's motion.</p>
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Fwd_and_Inv_Kinematics/fwd_inv_kinematics_2.png" alt="Inverse Kinematics Posture Solutions" />
+										</div>
+
+										<p style="text-indent: 2em;">The second task in this project applies inverse kinematics to motion planning. The manipulator is commanded to follow a circular trajectory (radius = 0.2 m) by computing the required joint angles at 13 evenly spaced points along the path. All postures are visualized together in 3D, demonstrating how the arm configuration changes continuously as the end-effector traces the circle.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Fwd_and_Inv_Kinematics/fwd_inv_kinematics_3.png" alt="Circular Trajectory 3D Visualization" />
+										</div>
+
+										<p style="text-indent: 2em;">This project was coded in MATLAB and required a detailed understanding of rigid body transformations, homogeneous coordinate systems, and the geometric relationships between joint space and Cartesian space. Implementing the inverse kinematics demanded careful derivation of closed-form trigonometric solutions using <code>atan2</code>, handling multiple solution branches, and selecting the appropriate posture for a given configuration. The forward kinematics chain and 3D visualizations were built using matrix multiplication and MATLAB's <code>plot3</code>, reinforcing the connection between the mathematical model and the physical behavior of the manipulator.</p>
 
 										<b>Technical Highlights</b>
 
 										<ul style="margin-left: 1em;">
-											<li>ROS2 (multi-node architecture, topics, publishers/subscribers)</li>
-											<li>Computer vision (color-based object detection)</li>
-											<li>Sensor fusion (camera + LiDAR)</li>
-											<li>Coordinate transformations (pixel space → angular space)</li>
-											<li>PID control systems (linear and angular control)</li>
-											<li>Real-time feedback control loops</li>
-											<li>Mobile robot kinematics and motion control</li>
-											<li>Embedded systems and Linux-based robotics</li>
+											<li>Forward &amp; inverse kinematics</li>
+											<li>Rigid body transformations &amp; homogeneous coordinates</li>
+											<li>Closed-form trigonometric solutions</li>
+											<li>Circular trajectory planning</li>
+											<li>3D visualization in MATLAB</li>
 										</ul>
 
-										<div class="video-container">
-											<iframe
-												src="https://www.youtube.com/embed/PD0ef-QyqP4 "
-												title="Object Detection and Autonomous Following - TurtleBot3 Demo"
-												frameborder="0"
-												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-												allowfullscreen>
-											</iframe>
-										</div>		
-
+										
 								</div>
 								
 

@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Jacob Faile - Object Chaser</title>
+		<title>Jacob Faile - Robot Arm Dynamics & Torque Analysis</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -62,47 +62,44 @@
 							<section id="one">
 								<div class="inner">
 									<header class="major">
-										<h1>PID-Controlled Object Chaser</h1>
+										<h1>Robot Arm Dynamics & Torque Analysis</h1>
 									</header>
-
 										
-										<p style="text-indent: 2em;">For a lab project as part of my Robotics Master's degree at Georgia Institute of Technology, a codebase was developed to interface with the open-source TurtleBot3 Burger.</p>
+										<p style="text-indent: 2em;">This project covers reverse dynamic analysis and torque decomposition for a planar 2R robot manipulator, implemented in MATLAB with Simscape Multibody simulation for validation.</p>
 
-										<p style="text-indent: 2em;">Using ROS2, the goal of the project was to enable the robot to detect a specific object and autonomously follow it as it moves. The system combined computer vision techniques with PID controllers to accomplish this task. Three ROS2 nodes were developed: the <code>detect_object</code> node, <code>get_object_range</code> node, and <code>chase_object</code> node.</p>
+										<p style="text-indent: 2em;">The first part of this project required performing reverse dynamic analysis using the 2R robot's dynamic equations of motion. The first step was to perform inverse kinematics to determine joint angles for a given circular end-point trajectory over a 0–5 second period. A numerical approach was used, and after calculating the joint angles, they were differentiated across time to obtain joint velocities and joint accelerations. These values were then used in the dynamic equation of motion to calculate the joint torques. After plotting these joint torques versus time, the following results were obtained.</p>
 
 										<div class="image-center">
-											<img src="../images/project_images/Robotics_and_Control_Systems/Mobile_Robotics/PID_Controlled_Object_Chaser/object_chaser_1.png" alt="Object Chaser" />
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Dynamics_and_Torque_Analysis/dynamics_torque_analysis_1.png" alt="Joint Torque vs Time Plot" />
 										</div>
-										
-										<p style="text-indent: 2em;">The <code>detect_object</code> node subscribed to the Raspberry Pi camera topic and applied computer vision techniques such as masking, erosion, and dilation to identify a blue ball in the image frame. The center of the object was determined in pixel space and published to the <code>get_object_range</code> node.</p>
 
-										<p style="text-indent: 2em;">The <code>get_object_range</code> node subscribed to the <code>detect_object</code> node and received the object's pixel coordinates. Using the camera's intrinsic parameters, it converted pixel values into angular measurements (degrees/radians) and mapped this position to a corresponding angle on the robot's 360-degree LiDAR. It then queried the <code>/scan</code> topic to obtain the object's distance and published both the angular position and range to the <code>chase_object</code> node.</p>
+										<p style="text-indent: 2em;">Though the analytical approach might have been slightly more accurate, the numerical approach matched the expected output very well.</p>
 
-										<p style="text-indent: 2em;">The <code>chase_object</code> node subscribed to the <code>get_object_range</code> node and used the object's angular position and distance to control the robot. Two PID (proportional, integral, derivative) controllers were implemented: one for linear control to maintain a set distance from the object, and one for angular control to keep the robot oriented toward it. These controllers generated linear and angular velocity commands, which were published to the <code>/cmd_vel</code> topic to drive the robot's motion.</p>
+										<p style="text-indent: 2em;">In the next part of this project, the breakdown of torque components into their three contributing components was plotted — inertia, Coriolis &amp; centrifugal, and gravity. Using the given dynamic equations of motion and plotting the total torque with each individual component, the following results were obtained.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Dynamics_and_Torque_Analysis/dynamics_torque_analysis_2.png" alt="Torque Component Breakdown" />
+										</div>
+
+										<p style="text-indent: 2em;">Plotting all components on the same graph revealed which was most dominant in the overall joint effort. The dominant components were analyzed by varying the trajectory frequency. At low frequencies, gravity dominates as the primary torque contributor. As frequency increases, the inertia component grows significantly due to greater accelerations, eventually becoming the dominant term, while Coriolis &amp; centrifugal components rise as well. Gravity, being constant, becomes proportionally less significant at higher speeds.</p>
+
+										<div class="image-center">
+											<img src="../images/project_images/Robotics_and_Control_Systems/Modeling_and_Control/Robot_Arm_Dynamics_and_Torque_Analysis/dynamics_torque_analysis_3.png" alt="Torque Frequency Analysis" />
+										</div>
 
 										<b>Technical Highlights</b>
 
 										<ul style="margin-left: 1em;">
-											<li>ROS2 (multi-node architecture, topics, publishers/subscribers)</li>
-											<li>Computer vision (color-based object detection)</li>
-											<li>Sensor fusion (camera + LiDAR)</li>
-											<li>Coordinate transformations (pixel space → angular space)</li>
-											<li>PID control systems (linear and angular control)</li>
-											<li>Real-time feedback control loops</li>
-											<li>Mobile robot kinematics and motion control</li>
-											<li>Embedded systems and Linux-based robotics</li>
+											<li>Inverse kinematics &amp; reverse dynamic analysis</li>
+											<li>Dynamic equations of motion</li>
+											<li>Joint torque calculation &amp; decomposition</li>
+											<li>Inertia, Coriolis &amp; centrifugal, and gravity torque components</li>
+											<li>Frequency analysis of dominant torque contributions</li>
+											<li>Numerical differentiation for joint velocities &amp; accelerations</li>
+											<li>MATLAB &amp; Simulink/Simscape integration</li>
 										</ul>
 
-										<div class="video-container">
-											<iframe
-												src="https://www.youtube.com/embed/PD0ef-QyqP4 "
-												title="Object Detection and Autonomous Following - TurtleBot3 Demo"
-												frameborder="0"
-												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-												allowfullscreen>
-											</iframe>
-										</div>		
-
+										
 								</div>
 								
 
