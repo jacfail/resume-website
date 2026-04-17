@@ -4169,3 +4169,14 @@ input, select, textarea {
 		margin: 0 auto;      
 		padding: 0 0;    
 	}
+
+	@media screen and (max-width: 736px) {
+    header.major {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    header.major > :first-child {
+        width: 100%;
+    }
+}
